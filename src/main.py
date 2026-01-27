@@ -17,9 +17,9 @@ app = modal.App('audio-cnn-inference')
 
 
 image = (modal.Image.debian_slim()
-    .pip_install_from_requirements('requirements.txt')
+    .pip_install_from_requirements('../requirements.txt')
     .apt_install('libsndfile1')
-    .add_local_python_source('model')
+    .add_local_python_source('model')  # Model module for inference
 )
 
 model_volume = modal.Volume.from_name("esc-model")

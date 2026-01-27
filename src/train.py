@@ -21,7 +21,7 @@ app = modal.App("audio-cnn")
 # Build image with dependencies and dataset
 image = (
     modal.Image.debian_slim()
-    .pip_install_from_requirements("requirements.txt")
+    .pip_install_from_requirements("../requirements.txt")
     .pip_install("torchcodec")
     .apt_install(["wget", "unzip", "ffmpeg", "libsndfile1"])
     .run_commands([
@@ -31,7 +31,7 @@ image = (
         "cp -r /tmp/ESC-50-master/* /opt/esc50-data/",
         "rm -rf /tmp/esc50.zip /tmp/ESC-50-master"
     ])
-    .add_local_python_source("model")  # make sure this folder exists
+    .add_local_python_source("model")  # Model module for inference
 )
 
 # Persistent volumes for dataset and model artifacts

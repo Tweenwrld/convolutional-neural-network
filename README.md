@@ -10,7 +10,7 @@
 
 **A deep learning system for environmental sound classification using a ResNet-18 inspired architecture, trained on the ESC-50 dataset with cloud-native infrastructure.**
 
-### 🚀 [Live Demo](https://audio-cnn-app.vercel.app) | 📄 [Download Documentation (PDF)](Convulational-Neural-Network-Document%20(1).pdf)
+### 🚀 [Live Demo](https://audio-cnn-app.vercel.app) | 📄 [Download Documentation (PDF)](docs/Convulational-Neural-Network-Document%20(1).pdf)
 
 [Features](#-features) •
 [Architecture](#-model-architecture) •
@@ -140,11 +140,16 @@ class ResidualBlock(nn.Module):
 ## 📁 Project Structure
 
 ```
-Convolutional-Neural-Network/
-├── 📄 model.py                 # CNN architecture (ResidualBlock, AudioCNN)
-├── 📄 train.py                 # Training pipeline with Modal infrastructure
-├── 📄 main.py                  # Inference API with FastAPI endpoint
+convolutional-neural-network/
+├── 📄 README.md                # Project documentation
 ├── 📄 requirements.txt         # Python dependencies
+├── 📄 .gitignore               # Git ignore rules
+│
+├── 📂 src/                     # Python source code
+│   ├── __init__.py             # Package initialization
+│   ├── model.py                # CNN architecture (ResidualBlock, AudioCNN)
+│   ├── train.py                # Training pipeline with Modal infrastructure
+│   └── main.py                 # Inference API with FastAPI endpoint
 │
 ├── 📂 audio-cnn-app/           # Next.js visualization dashboard
 │   ├── 📂 src/
@@ -161,12 +166,18 @@ Convolutional-Neural-Network/
 │   ├── package.json
 │   └── tsconfig.json
 │
-├── 📂 tensorboard_logs/        # Training metrics and visualizations
+├── 📂 docs/                    # Documentation
+│   ├── 📂 images/              # Documentation images
+│   │   └── convolutional-layer-output-front-end.png
+│   └── Convulational-Neural-Network-Document (1).pdf
 │
-└── 📂 sample_audio/            # Example audio files for testing
-    ├── Thunderstorm.wav
-    ├── chirping-birds.wav
-    └── drilling-sound.wav
+├── 📂 samples/                 # Sample audio files for testing
+│   ├── Thunderstorm.wav
+│   ├── chirping-birds.wav
+│   ├── drilling-sound.wav
+│   └── *.mp3                   # Additional sample files
+│
+└── 📂 tensorboard_logs/        # Training metrics and visualizations
 ```
 
 ---
@@ -221,7 +232,7 @@ The training pipeline uses Modal's serverless infrastructure with NVIDIA A10G GP
 
 ```bash
 # Run training on Modal's cloud infrastructure
-modal run train.py
+cd src && modal run train.py
 ```
 
 **Training Configuration:**
@@ -247,7 +258,7 @@ The inference API is deployed as a serverless FastAPI endpoint:
 
 ```bash
 # Deploy inference endpoint
-modal deploy main.py
+cd src && modal deploy main.py
 ```
 
 **Python Example:**
@@ -296,7 +307,7 @@ The Next.js application provides an interactive interface for exploring model be
 
 <div align="center">
 
-![Visualization Dashboard](convolutional-layer-output-front-end.png)
+![Visualization Dashboard](docs/images/convolutional-layer-output-front-end.png)
 
 </div>
 
