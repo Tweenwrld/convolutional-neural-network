@@ -10,6 +10,8 @@
 
 **A deep learning system for environmental sound classification using a ResNet-18 inspired architecture, trained on the ESC-50 dataset with cloud-native infrastructure.**
 
+### 🚀 [Live Demo](https://audio-cnn-app.vercel.app) | 📄 [Download Documentation (PDF)](Convulational-Neural-Network-Document%20(1).pdf)
+
 [Features](#-features) •
 [Architecture](#-model-architecture) •
 [Installation](#-installation) •
