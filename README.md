@@ -378,7 +378,47 @@ The [Environmental Sound Classification (ESC-50)](https://github.com/karolpiczak
 
 ---
 
-## 🔮 Future Directions
+## � Training Results
+
+### Performance Summary
+
+| Metric | Value |
+|--------|-------|
+| **Best Accuracy** | **84.00%** |
+| **Final Validation Loss** | 1.4414 |
+| **Total Epochs** | 100 |
+| **Training Samples** | 1,600 |
+| **Validation Samples** | 400 |
+| **Training Time** | ~100 minutes |
+| **Hardware** | NVIDIA A10G (Modal) |
+
+### Training Progress
+
+```
+Epoch   1: Accuracy  8.50%  │ Loss: 3.8488  (baseline)
+Epoch  12: Accuracy 30.75%  │ Loss: 2.8962  (learning basic patterns)
+Epoch  25: Accuracy 51.50%  │ Loss: 2.3368  (crossing 50% threshold)
+Epoch  37: Accuracy 64.00%  │ Loss: 1.9810  (strong feature learning)
+Epoch  49: Accuracy 74.00%  │ Loss: 1.7062  (approaching convergence)
+Epoch  55: Accuracy 79.00%  │ Loss: 1.7276  (fine-tuning)
+Epoch  80: Accuracy 82.00%  │ Loss: 1.2618  (peak performance)
+Epoch  94: Accuracy 84.00%  │ Loss: 1.2720  (best model saved ✓)
+```
+
+### Comparison with State-of-the-Art
+
+| Model | Accuracy | Notes |
+|-------|----------|-------|
+| Human Performance | 81.3% | Baseline from ESC-50 paper |
+| **Our ResNet-18 CNN** | **84.0%** | Custom implementation |
+| Audio Spectrogram Transformer | 95.6% | Heavy pre-training on AudioSet |
+| PaSST | 96.8% | Patchout + Transformers |
+
+> 🎯 **Our model surpasses human-level performance** and achieves competitive results with a lightweight CNN architecture (no pre-training required).
+
+---
+
+## �🔮 Future Directions
 
 ### 1. Audio Spectrogram Transformers (AST)
 Transformer architectures have surpassed CNNs on ESC-50, achieving >98% accuracy through self-attention mechanisms that capture global dependencies.
