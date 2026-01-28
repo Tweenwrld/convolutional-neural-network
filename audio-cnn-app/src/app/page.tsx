@@ -263,37 +263,89 @@ export default function HomePage() {
             </Card>
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              <Card>
+              <Card className="flex flex-col">
                 <CardHeader className="text-stone-900">
                   <CardTitle className="text-stone-900">Input Spectrogram</CardTitle>
+                  <p className="text-sm text-stone-500">
+                    Visual representation of audio frequencies over time
+                  </p>
                 </CardHeader>
-                <CardContent>
-                  {/* Feature Map*/}
-                  <FeatureMap
-                    data={vizData.input_spectrogram.values}
-                    title={`${vizData.input_spectrogram.shape.join(" x ")}`}
-                    spectrogram
-                  />
-                  {/* Color Scale */}
-                  <div className="mt-5 flex justify-end">
-                    <ColorScale
-                      width={200}
-                      height={16}
-                      min={-1}
-                      max={1}
-                    />
+                <CardContent className="flex flex-1 flex-col">
+                  {/* Axis Labels */}
+                  <div className="relative flex-1">
+                    {/* Y-axis label */}
+                    <div className="absolute -left-6 top-1/2 -translate-y-1/2 -rotate-90 text-xs font-medium text-stone-500">
+                      Frequency (Mel)
+                    </div>
+                    {/* Feature Map*/}
+                    <div className="ml-2">
+                      <FeatureMap
+                        data={vizData.input_spectrogram.values}
+                        title=""
+                        spectrogram
+                      />
+                    </div>
+                    {/* X-axis label */}
+                    <div className="mt-1 text-center text-xs font-medium text-stone-500">
+                      Time →
+                    </div>
+                  </div>
+                  {/* Legend */}
+                  <div className="mt-4 rounded-lg bg-stone-50 p-3">
+                    <div className="flex items-center justify-between">
+                      <div className="text-xs text-stone-600">
+                        <span className="font-medium">Shape:</span> {vizData.input_spectrogram.shape.join(" × ")} 
+                        <span className="ml-2 text-stone-400">(128 mel bands × time frames)</span>
+                      </div>
+                      <ColorScale width={150} height={12} min={-1} max={1} />
+                    </div>
+                    <p className="mt-2 text-xs text-stone-500">
+                      🔵 Blue = High energy | ⚪ White = Low energy | 🟠 Orange = Negative values
+                    </p>
                   </div>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="flex flex-col">
                 <CardHeader>
                   <CardTitle className="text-stone-900">Audio Waveform</CardTitle>
+                  <p className="text-sm text-stone-500">
+                    Raw amplitude of the sound signal over time
+                  </p>
                 </CardHeader>
-                <CardContent>
-                  <Waveform
-                    data={vizData.waveform.values}
-                    title={`${vizData.waveform.duration.toFixed(2)}s @ ${vizData.waveform.sample_rate}Hz`}
-                  />
+                <CardContent className="flex flex-1 flex-col">
+                  <div className="relative flex-1">
+                    {/* Y-axis label */}
+                    <div className="absolute -left-6 top-1/2 -translate-y-1/2 -rotate-90 text-xs font-medium text-stone-500">
+                      Amplitude
+                    </div>
+                    <div className="ml-2">
+                      <Waveform
+                        data={vizData.waveform.values}
+                        title=""
+                      />
+                    </div>
+                    {/* X-axis label */}
+                    <div className="mt-1 text-center text-xs font-medium text-stone-500">
+                      Time →
+                    </div>
+                  </div>
+                  {/* Legend */}
+                  <div className="mt-4 rounded-lg bg-stone-50 p-3">
+                    <div className="flex items-center justify-between text-xs text-stone-600">
+                      <div>
+                        <span className="font-medium">Duration:</span> {vizData.waveform.duration.toFixed(2)}s
+                      </div>
+                      <div>
+                        <span className="font-medium">Sample Rate:</span> {vizData.waveform.sample_rate.toLocaleString()} Hz
+                      </div>
+                      <div>
+                        <span className="font-medium">Samples:</span> {vizData.waveform.values.length.toLocaleString()}
+                      </div>
+                    </div>
+                    <p className="mt-2 text-xs text-stone-500">
+                      📈 Shows how loud the sound is at each moment. Center line = silence.
+                    </p>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -302,6 +354,9 @@ export default function HomePage() {
             <Card>
               <CardHeader>
                 <CardTitle>Convolutional Layer Outputs</CardTitle>
+                <p className="text-sm text-stone-500">
+                  What the CNN &quot;sees&quot; at each layer — from simple patterns to complex features
+                </p>
               </CardHeader>
               <CardContent>
                 {mainLayers.length > 0 ? (

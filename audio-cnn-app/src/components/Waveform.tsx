@@ -2,7 +2,7 @@ const Waveform = ({ data, title }: { data: number[]; title: string }) => {
   if (!data || data.length === 0) return null;
 
   const width = 600;
-  const height = 300;
+  const height = 200;
   const centerY = height / 2;
 
   const validData = data.filter((val) => !isNaN(val) && isFinite(val));
@@ -28,18 +28,31 @@ const Waveform = ({ data, title }: { data: number[]; title: string }) => {
     .join(" ");
 
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="flex flex-1 items-center justify-center">
+    <div className="flex w-full flex-col">
+      <div className="flex items-center justify-center">
         <svg
           viewBox={`0 0 ${width} ${height}`}
           preserveAspectRatio="xMidYMid meet"
-          className="block max-h-75 max-w-full rounded border border-stone-200"
+          className="block h-[180px] w-full rounded border border-stone-200"
         >
+          {/* Grid lines */}
           <path
-            d={`M 0 ${centerY} H ${width}`}
-            stroke="#e7e5e4"
+            d={`M 0 ${height * 0.25} H ${width}`}
+            stroke="#f5f5f4"
             strokeWidth="1"
           />
+          <path
+            d={`M 0 ${centerY} H ${width}`}
+            stroke="#d6d3d1"
+            strokeWidth="1"
+            strokeDasharray="4,4"
+          />
+          <path
+            d={`M 0 ${height * 0.75} H ${width}`}
+            stroke="#f5f5f4"
+            strokeWidth="1"
+          />
+          {/* Waveform */}
           <path
             d={pathData}
             fill="none"
@@ -50,7 +63,7 @@ const Waveform = ({ data, title }: { data: number[]; title: string }) => {
           />
         </svg>
       </div>
-      <p className="mt-2 text-center text-xs text-stone-500">{title}</p>
+      {title && <p className="mt-2 text-center text-xs text-stone-500">{title}</p>}
     </div>
   );
 };
