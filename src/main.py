@@ -9,11 +9,23 @@ import torch.nn as nn
 from pydantic import BaseModel
 import soundfile as sf
 import librosa
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from model import AudioCNN
 
 
 app = modal.App('audio-cnn-inference')
+
+# Create FastAPI app with CORS
+web_app = FastAPI()
+web_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins (or specify ["https://audio-cnn-app.vercel.app"])
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 image = (modal.Image.debian_slim()
@@ -51,8 +63,12 @@ class AudioProcessor:
     
 class InferenceRequest(BaseModel):
     audio_data: str
-    
-    
+
+
+# Global classifier instance for the web app
+classifier_instance = None
+
+
 @app.cls(image=image, gpu='A10G', volumes={'/models': model_volume}, scaledown_window=15)
 class AudioClassifier:
     @modal.enter()
@@ -73,8 +89,7 @@ class AudioClassifier:
         print('Model loaded!')
         
         
-    @modal.fastapi_endpoint(method='POST')
-    def inference(self, request: InferenceRequest):  
+    def run_inference(self, request: InferenceRequest):  
         # for production scenario: frontend -> upload file to S3 -> inference endpoint -> download from S3 buckect
         # Frontend -> send files directly -> inference endpoint ( this is what we will do)
         audio_bytes = base64.b64decode(request.audio_data)
@@ -158,6 +173,19 @@ class AudioClassifier:
         }
         
         return response
+
+
+# FastAPI route that uses the classifier
+@web_app.post("/inference")
+async def inference_endpoint(request: InferenceRequest):
+    classifier = AudioClassifier()
+    return classifier.run_inference(request)
+
+
+@app.function(image=image, gpu='A10G', volumes={'/models': model_volume}, scaledown_window=15)
+@modal.asgi_app()
+def fastapi_app():
+    return web_app
     
     
 @app.local_entrypoint()
@@ -171,9 +199,9 @@ def main():
         'audio_data': audio_b64
     }
     
-    server = AudioClassifier()
-    url = server.inference.get_web_url()
-    response = requests.post(url, json = payload)
+    # Test the endpoint
+    url = "https://leonard383boma--audio-cnn-inference-fastapi-app.modal.run/inference"
+    response = requests.post(url, json=payload)
     
     result = response.json()
     
@@ -181,7 +209,7 @@ def main():
     if waveform_info:
         values = waveform_info.get("values", [])
         print(f"Starting 10 values: {[round(v, 4) for v in values [:10]]}...")
-        print(f"Duration: {waveform_info.get("duration"), 0}")
+        print(f"Duration: {waveform_info.get('duration', 0)}")
     
     print('Top Predictions:')
     for pred in result.get('predictions', []):

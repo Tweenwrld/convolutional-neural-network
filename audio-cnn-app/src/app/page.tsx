@@ -151,14 +151,14 @@ export default function HomePage() {
           ),
         );
 
-        const response = await fetch (
-        "https://tweenhaven35--audio-cnn-inference-audioclassifier-inference.modal.run/",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ audio_data: base64String }),
-        },
-      );
+        const response = await fetch(
+          "https://leonard383boma--audio-cnn-inference-fastapi-app.modal.run/inference",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ audio_data: base64String }),
+          },
+        );
 
       if (!response.ok) {
         throw new Error(`API Error ${response.statusText}`);
