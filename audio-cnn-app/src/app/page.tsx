@@ -91,7 +91,7 @@ const getEmojiForClass = (className: string): string => {
   return ESC50_EMOJI_MAP[className] ?? "❓";
 }
 
-function splitLayers (visualization: VisualizationData){
+function splitLayers(visualization: VisualizationData) {
   const mainLayers: [string, LayerData][] = [];
   const blockLayers: Record<string, [string, LayerData][]> = {};
 
@@ -160,9 +160,9 @@ export default function HomePage() {
           },
         );
 
-      if (!response.ok) {
-        throw new Error(`API Error ${response.statusText}`);
-      }
+        if (!response.ok) {
+          throw new Error(`API Error ${response.statusText}`);
+        }
 
         const data = await response.json() as ApiResponse;
         setVizData(data);
@@ -188,7 +188,7 @@ export default function HomePage() {
       <div className="mx-auto max-w-full ">
         <div className="mb-12 text-center">
           <h1 className="mb-4 text-4xl font-light tracking-tight text-stone-900">
-            CNN Audio Visualizer 
+            CNN Audio Visualizer
           </h1>
           <p className="mb-8 text-md text-stone-600">
             Upload a WAV file to see the model predictions and feature maps
@@ -196,7 +196,7 @@ export default function HomePage() {
 
           <div className="flex flex-col items-center">
             <div className="relative inline-block">
-              <input 
+              <input
                 type="file"
                 accept=".wav"
                 id="file-upload"
@@ -204,9 +204,9 @@ export default function HomePage() {
                 disabled={isLoading}
                 className="absolute inset-0 w-full cursor-pointer opacity-0"
               />
-              <Button 
-                className="border-stone-300" 
-                variant="outline" 
+              <Button
+                className="border-stone-300"
+                variant="outline"
                 size="lg"
                 disabled={isLoading}
               >
@@ -216,7 +216,7 @@ export default function HomePage() {
 
             {fileName && (
               <Badge
-                variant="secondary" 
+                variant="secondary"
                 className="mt-4 bg-stone-200 text-stone-700"
               >
                 {fileName}
@@ -271,12 +271,12 @@ export default function HomePage() {
                   {/* Feature Map*/}
                   <FeatureMap
                     data={vizData.input_spectrogram.values}
-                    title={`${vizData.input_spectrogram.shape.join(" x ")}`}    
+                    title={`${vizData.input_spectrogram.shape.join(" x ")}`}
                     spectrogram
                   />
                   {/* Color Scale */}
                   <div className="mt-5 flex justify-end">
-                    <ColorScale 
+                    <ColorScale
                       width={200}
                       height={16}
                       min={-1}
@@ -289,13 +289,13 @@ export default function HomePage() {
                 <CardHeader>
                   <CardTitle className="text-stone-900">Audio Waveform</CardTitle>
                 </CardHeader>
-              <CardContent>
+                <CardContent>
                   <Waveform
                     data={vizData.waveform.values}
                     title={`${vizData.waveform.duration.toFixed(2)}s @ ${vizData.waveform.sample_rate}Hz`}
                   />
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Feature Maps */}
@@ -313,7 +313,7 @@ export default function HomePage() {
                             <h4 className="mb-2 font-medium text-stone-700">{layerName}</h4>
                             <FeatureMap
                               data={layerData.values}
-                              title={`${layerData.shape.join(" x ")}`}    
+                              title={`${layerData.shape.join(" x ")}`}
                             />
                           </div>
 
@@ -339,7 +339,7 @@ export default function HomePage() {
                     </div>
 
                     <div className="mt-5 flex justify-end">
-                      <ColorScale 
+                      <ColorScale
                         width={200}
                         height={16}
                         min={-1}
