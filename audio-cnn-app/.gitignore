@@ -44,3 +44,31 @@ yarn-error.log*
 
 # idea files
 .idea
+
+# ESLint cache
+.eslintcache
+
+# Turbo
+.turbo/
+
+# PWA
+sw.js
+workbox-*.js
+
+# Sentry
+.sentryclirc
+
+# Storybook
+storybook-static/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Bundle analyzer
+.next/analyze/
+
+# Misc
+*.tgz
+.cache/

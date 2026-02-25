@@ -63,3 +63,46 @@ out/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+
+# MarsCode IDE
+.marscode/
+
+# Coverage
+.coverage
+coverage/
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Modal
+.modal/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Audio/data files (keep samples/ but ignore large datasets)
+data/
+datasets/
+*.wav
+*.mp3
+*.flac
+!samples/*.wav
+!samples/*.mp3
+
+# Model checkpoints (stored on Modal volume)
+checkpoints/
+models/
+*.onnx
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+
+# Misc
+*.bak
+*.tmp
+*.temp
+.cache/
