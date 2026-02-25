@@ -34,7 +34,9 @@
   - [Training](#training)
   - [Inference](#inference)
 - [Visualization Dashboard](#-visualization-dashboard)
+- [Screenshots & Gallery](#-screenshots--gallery)
 - [Technical Details](#-technical-details)
+- [Training Results](#-training-results)
 - [Future Directions](#-future-directions)
 - [Acknowledgements](#-acknowledgements)
 - [References](#-references)
@@ -329,7 +331,127 @@ pnpm dev
 
 ---
 
-## 🔬 Technical Details
+## � Screenshots & Gallery
+
+### Training & Model Performance
+
+<table>
+<tr>
+<td width="50%">
+
+**Model Training on Modal**
+
+Training in progress on NVIDIA A10G GPU with real-time metric logging.
+
+![Model Training](audio-cnn-app/public/audio-cnn-classifer/model-training.png)
+
+</td>
+<td width="50%">
+
+**Accuracy & Validation Graph**
+
+Model accuracy progression over 100 epochs, reaching **84% accuracy**.
+
+![Accuracy Graph](audio-cnn-app/public/audio-cnn-classifer/Accuracy-Validation-graph.png)
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**Training Loss Curve**
+
+Cross-entropy loss decreasing from ~3.8 to ~1.2 over training.
+
+![Loss Graph](audio-cnn-app/public/audio-cnn-classifer/Loss-Graph.png)
+
+</td>
+<td width="50%">
+
+**Learning Rate Schedule**
+
+OneCycleLR scheduler with warmup (0.0005 → 0.002 → 0).
+
+![Learning Rate](audio-cnn-app/public/audio-cnn-classifer/Learning-Rate-Graph.png)
+
+</td>
+</tr>
+</table>
+
+### Frontend Visualization
+
+<table>
+<tr>
+<td width="50%">
+
+**Input Spectrogram & Waveform**
+
+Real-time visualization of uploaded audio: Mel-spectrogram (frequency × time) and raw waveform amplitude.
+
+![Spectrogram & Waveform](audio-cnn-app/public/audio-cnn-classifer/front-end-input-spectrogram-audio-waveform.png)
+
+</td>
+<td width="50%">
+
+**Convolutional Layer Activations**
+
+Feature maps from each CNN layer showing what patterns the model detects.
+
+![Feature Maps](audio-cnn-app/public/audio-cnn-classifer/convolutional-layer-output-front-end.png)
+
+</td>
+</tr>
+</table>
+
+### Inference Testing
+
+<div align="center">
+
+**Local Endpoint Test — Bird Chirping Sound Classification**
+
+Testing the inference API with a bird chirping audio sample, showing predicted class and confidence scores.
+
+![Inference Test](audio-cnn-app/public/audio-cnn-classifer/Local-Endpoint-Testing-Bird-Chirping-sound.png)
+
+</div>
+
+### Modal Cloud Infrastructure
+
+<table>
+<tr>
+<td width="33%">
+
+**Modal Dashboard**
+
+Serverless function deployments and container management.
+
+![Modal Dashboard](audio-cnn-app/public/audio-cnn-classifer/modal-pic-1.png)
+
+</td>
+<td width="33%">
+
+**Container Usage Metrics**
+
+GPU utilization and compute time tracking.
+
+![Container Usage](audio-cnn-app/public/audio-cnn-classifer/modal-container-usage.png)
+
+</td>
+<td width="33%">
+
+**Performance Metrics**
+
+Inference latency and request throughput.
+
+![Metrics](audio-cnn-app/public/audio-cnn-classifer/modal-metrics-pic-2.png)
+
+</td>
+</tr>
+</table>
+
+---
+
+## �🔬 Technical Details
 
 ### Signal Processing Pipeline
 
